@@ -81,7 +81,7 @@ class PolyLineFromEncoded(_BaseFromEncoded):
     @property
     def _encoding_type(self) -> str:
         """Return the name of folium object created from the encoded."""
-        return "Polyline"
+        pass
 
 
 class PolygonFromEncoded(_BaseFromEncoded):
@@ -115,4 +115,4 @@ class PolygonFromEncoded(_BaseFromEncoded):
     @property
     def _encoding_type(self) -> str:
         """Return the name of folium object created from the encoded."""
-        return "Polygon"
+        pass

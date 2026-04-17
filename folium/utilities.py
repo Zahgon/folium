@@ -353,7 +353,7 @@ def compare_rendered(obj1: str, obj2: str) -> bool:
     two folium map objects are the equal or not.
 
     """
-    return normalize(obj1) == normalize(obj2)
+    pass
 
 
 def normalize(rendered: str) -> str:
@@ -427,11 +427,7 @@ def javascript_identifier_path_to_array_notation(path: str) -> str:
 
 def get_and_assert_figure_root(obj: Element) -> Figure:
     """Return the root element of the tree and assert it's a Figure."""
-    figure = obj.get_root()
-    assert isinstance(
-        figure, Figure
-    ), "You cannot render this Element if it is not in a Figure."
-    return figure
+    pass
 
 
 class JsCode:

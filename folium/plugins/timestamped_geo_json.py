@@ -225,10 +225,7 @@ class TimestampedGeoJson(JSCSSMixin, MacroElement):
         )
 
     def render(self, **kwargs):
-        assert isinstance(
-            self._parent, Map
-        ), "TimestampedGeoJson can only be added to a Map object."
-        super().render(**kwargs)
+        pass
 
     def _get_self_bounds(self):
         """
@@ -236,15 +233,4 @@ class TimestampedGeoJson(JSCSSMixin, MacroElement):
         in the form [[lat_min, lon_min], [lat_max, lon_max]].
 
         """
-        if not self.embed:
-            raise ValueError("Cannot compute bounds of non-embedded GeoJSON.")
-
-        data = json.loads(self.data)
-        if "features" not in data.keys():
-            # Catch case when GeoJSON is just a single Feature or a geometry.
-            if not (isinstance(data, dict) and "geometry" in data.keys()):
-                # Catch case when GeoJSON is just a geometry.
-                data = {"type": "Feature", "geometry": data}
-            data = {"type": "FeatureCollection", "features": [data]}
-
-        return get_bounds(data, lonlat=True)
+        pass

@@ -15,7 +15,7 @@ from folium.utilities import JsCode, camelize
 def leaflet_method(fn):
     @wraps(fn)
     def inner(self, *args, **kwargs):
-        self.add_child(MethodCall(self, fn.__name__, *args, **kwargs))
+        pass
 
     return inner
 
@@ -31,39 +31,22 @@ class JSCSSMixin(MacroElement):
     # be overwritten by any subclassing class that also has
     # a _template variable.
     def render(self, **kwargs):
-        figure = self.get_root()
-        assert isinstance(
-            figure, Figure
-        ), "You cannot render this Element if it is not in a Figure."
-
-        for name, url in self.default_js:
-            figure.header.add_child(JavascriptLink(url), name=name)
-
-        for name, url in self.default_css:
-            figure.header.add_child(CssLink(url), name=name)
-
-        super().render(**kwargs)
+        pass
 
     def add_css_link(self, name: str, url: str):
         """Add or update css resource link."""
-        self._add_link(name, url, self.default_css)
+        pass
 
     def add_js_link(self, name: str, url: str):
         """Add or update JS resource link."""
-        self._add_link(name, url, self.default_js)
+        pass
 
     def _add_link(self, name: str, url: str, default_list: list[tuple[str, str]]):
         """Modify a css or js link.
 
         If `name` does not exist, the link will be appended
         """
-
-        for i, pair in enumerate(default_list):
-            if pair[0] == name:
-                default_list[i] = (name, url)
-                break
-        else:
-            default_list.append((name, url))
+        pass
 
 
 class EventHandler(MacroElement):
@@ -165,7 +148,7 @@ class IncludeStatement(MacroElement):
         self.options = kwargs
 
     def render(self, *args, **kwargs):
-        return super().render(*args, **kwargs)
+        pass
 
 
 class MethodCall(MacroElement):

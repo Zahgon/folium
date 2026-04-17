@@ -285,16 +285,4 @@ class HeatMapWithTime(JSCSSMixin, Layer):
         in the form [[lat_min, lon_min], [lat_max, lon_max]].
 
         """
-        bounds = [[None, None], [None, None]]
-        for point in self.data:
-            bounds = [
-                [
-                    none_min(bounds[0][0], point[0]),
-                    none_min(bounds[0][1], point[1]),
-                ],
-                [
-                    none_max(bounds[1][0], point[0]),
-                    none_max(bounds[1][1], point[1]),
-                ],
-            ]
-        return bounds
+        pass

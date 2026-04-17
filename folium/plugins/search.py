@@ -126,26 +126,7 @@ class Search(JSCSSMixin, MacroElement):
         self.options = remove_empty(**kwargs)
 
     def test_params(self, keys):
-        if keys is not None and self.search_label is not None:
-            assert self.search_label in keys, (
-                f"The label '{self.search_label}' was not " f"available in {keys}" ""
-            )
-        assert isinstance(
-            self._parent, Map
-        ), "Search can only be added to folium Map objects."
+        pass
 
     def render(self, **kwargs):
-        if isinstance(self.layer, GeoJson):
-            keys = tuple(self.layer.data["features"][0]["properties"].keys())
-        elif isinstance(self.layer, TopoJson):
-            obj_name = self.layer.object_path.split(".")[-1]
-            keys = tuple(
-                self.layer.data["objects"][obj_name]["geometries"][0][
-                    "properties"
-                ].keys()
-            )  # noqa
-        else:
-            keys = None
-        self.test_params(keys=keys)
-
-        super().render(**kwargs)
+        pass

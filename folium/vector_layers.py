@@ -150,7 +150,7 @@ class BaseMultiLocation(MacroElement):
 
     def _get_self_bounds(self) -> list[list[Optional[float]]]:
         """Compute the bounds of the object itself."""
-        return get_bounds(self.locations)
+        pass
 
 
 class PolyLine(BaseMultiLocation):
@@ -286,7 +286,7 @@ class Rectangle(MacroElement):
 
     def _get_self_bounds(self) -> list[list[Optional[float]]]:
         """Compute the bounds of the object itself."""
-        return get_bounds(self.locations)
+        pass
 
 
 class Circle(Marker):

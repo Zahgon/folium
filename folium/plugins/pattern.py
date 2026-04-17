@@ -70,8 +70,7 @@ class StripePattern(JSCSSMixin, MacroElement):
         self.parent_map = None
 
     def render(self, **kwargs):
-        self.parent_map = get_obj_in_upper_tree(self, Map)
-        super().render(**kwargs)
+        pass
 
 
 class CirclePattern(JSCSSMixin, MacroElement):
@@ -149,5 +148,4 @@ class CirclePattern(JSCSSMixin, MacroElement):
         self.parent_map = None
 
     def render(self, **kwargs):
-        self.parent_map = get_obj_in_upper_tree(self, Map).get_name()
-        super().render(**kwargs)
+        pass

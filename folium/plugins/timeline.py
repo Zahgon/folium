@@ -121,7 +121,7 @@ class Timeline(GeoJson):
         in the form [[lat_min, lon_min], [lat_max, lon_max]].
 
         """
-        return get_bounds(self.data, lonlat=True)
+        pass
 
 
 class TimelineSlider(JSCSSMixin, MacroElement):
@@ -241,11 +241,7 @@ class TimelineSlider(JSCSSMixin, MacroElement):
 
     def add_timelines(self, *args):
         """Add timelines to the control"""
-        self.timelines += args  # we do not check for duplicates
-        return self
+        pass
 
     def render(self, **kwargs):
-        assert isinstance(
-            self._parent, Map
-        ), "TimelineSlider can only be added to a Map object."
-        super().render(**kwargs)
+        pass

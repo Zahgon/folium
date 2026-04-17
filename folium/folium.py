@@ -346,14 +346,7 @@ class Map(JSCSSMixin, Evented):
 
     def _repr_html_(self, **kwargs) -> str:
         """Displays the HTML Map in a Jupyter notebook."""
-        if self._parent is None:
-            self.add_to(Figure())
-            self._parent: Figure
-            out = self._parent._repr_html_(**kwargs)
-            self._parent = None
-        else:
-            out = self._parent._repr_html_(**kwargs)
-        return out
+        pass
 
     def _to_png(
         self, delay: int = 3, driver: Any = None, size: Optional[Sequence[int]] = None
@@ -371,60 +364,15 @@ class Map(JSCSSMixin, Evented):
         >>> m._to_png(time=10)  # Wait 10 seconds between render and snapshot.
 
         """
-
-        if self._png_image is None:
-            if driver is None:
-                from selenium import webdriver
-                from selenium.webdriver.firefox.options import Options
-
-                options = Options()
-                options.add_argument("--headless")
-                driver = webdriver.Firefox(options=options)
-
-            if size is None:
-                driver.fullscreen_window()
-            else:
-                window_size = driver.execute_script(
-                    """
-                    return [window.outerWidth - window.innerWidth + arguments[0],
-                      window.outerHeight - window.innerHeight + arguments[1]];
-                    """,
-                    *size,
-                )
-                driver.set_window_size(*window_size)
-            html = self.get_root().render()
-            with temp_html_filepath(html) as fname:
-                # We need the tempfile to avoid JS security issues.
-                driver.get(f"file:///{fname}")
-                time.sleep(delay)
-                div = driver.find_element("class name", "folium-map")
-                png = div.screenshot_as_png
-                driver.quit()
-            self._png_image = png
-        return self._png_image
+        pass
 
     def _repr_png_(self) -> Optional[bytes]:
         """Displays the PNG Map in a Jupyter notebook."""
-        # The notebook calls all _repr_*_ by default.
-        # We don't want that here b/c this one is quite slow.
-        if not self.png_enabled:
-            return None
-        return self._to_png()
+        pass
 
     def show_in_browser(self) -> None:
         """Display the Map in the default web browser."""
-        with temp_html_filepath(self.get_root().render()) as fname:
-            webbrowser.open("file://" + fname)
-            print(
-                "Your map should have been opened in your browser automatically."
-                "\nPress ctrl+c to return."
-            )
-            # Block until stopped by user, afterwards remove the temporary file
-            try:
-                while True:
-                    time.sleep(100)
-            except KeyboardInterrupt:
-                pass
+        pass
 
     def fit_bounds(
         self,
@@ -458,15 +406,7 @@ class Map(JSCSSMixin, Evented):
         >>> m.fit_bounds([[52.193636, -2.221575], [52.636878, -1.139759]])
 
         """
-        self.add_child(
-            FitBounds(
-                bounds,
-                padding_top_left=padding_top_left,
-                padding_bottom_right=padding_bottom_right,
-                padding=padding,
-                max_zoom=max_zoom,
-            )
-        )
+        pass
 
     def keep_in_front(self, *args: Layer) -> None:
         """Pass one or multiple layers that must stay in front.
@@ -480,5 +420,4 @@ class Map(JSCSSMixin, Evented):
             overlay. For example FeatureGroup or TileLayer.
             Does not work with markers, for those use z_index_offset.
         """
-        for obj in args:
-            self.objects_to_stay_in_front.append(obj)
+        pass

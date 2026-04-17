@@ -91,13 +91,7 @@ class DualMap(JSCSSMixin, MacroElement):
 
     def _repr_html_(self, **kwargs):
         """Displays the HTML Map in a Jupyter notebook."""
-        if self._parent is None:
-            self.add_to(Figure())
-            out = self._parent._repr_html_(**kwargs)
-            self._parent = None
-        else:
-            out = self._parent._repr_html_(**kwargs)
-        return out
+        pass
 
     def add_child(self, child, name=None, index=None):
         """Add object `child` to the first map and store it for the second."""
@@ -112,7 +106,7 @@ class DualMap(JSCSSMixin, MacroElement):
 
     def once(self, **event_map: JsCode):
         """Add event handlers to both maps at once"""
-        self._add(once=True, **event_map)
+        pass
 
     def _add(self, once: bool, **event_map: JsCode):
         for event_type, handler in event_map.items():
@@ -120,24 +114,10 @@ class DualMap(JSCSSMixin, MacroElement):
             self.m2.add_child(EventHandler(event_type, handler, once))
 
     def render(self, **kwargs):
-        super().render(**kwargs)
-
-        for child, name, index in self.children_for_m2:
-            if child._id in self.children_for_m2_copied:
-                # This map has been rendered before, child was copied already.
-                continue
-            child_copy = deep_copy(child)
-            if isinstance(child_copy, LayerControl):
-                child_copy.reset()
-            self.m2.add_child(child_copy, name, index)
-            # m2 has already been rendered, so render the child here:
-            child_copy.render()
-            self.children_for_m2_copied.append(child._id)
+        pass
 
     def fit_bounds(self, *args, **kwargs):
-        for m in (self.m1, self.m2):
-            m.fit_bounds(*args, **kwargs)
+        pass
 
     def keep_in_front(self, *args):
-        for m in (self.m1, self.m2):
-            m.keep_in_front(*args)
+        pass

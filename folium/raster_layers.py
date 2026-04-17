@@ -339,7 +339,7 @@ class ImageOverlay(Layer):
         in the form [[lat_min, lon_min], [lat_max, lon_max]].
 
         """
-        return normalize_bounds_type(self.bounds)
+        pass
 
 
 class VideoOverlay(Layer):
@@ -404,4 +404,4 @@ class VideoOverlay(Layer):
         in the form [[lat_min, lon_min], [lat_max, lon_max]]
 
         """
-        return normalize_bounds_type(self.bounds)
+        pass

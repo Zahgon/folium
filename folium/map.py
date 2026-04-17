@@ -43,35 +43,20 @@ class Class(MacroElement):
 
     @classmethod
     def include(cls, **kwargs):
-        cls._includes[cls].update(**kwargs)
+        pass
 
     @classproperty
     def includes(cls):
-        return cls._includes[cls]
+        pass
 
     @property
     def leaflet_class_name(self):
         # TODO: I did not check all Folium classes to see if
         # this holds up. This breaks at least for CustomIcon.
-        return f"L.{self._name}"
+        pass
 
     def render(self, **kwargs):
-        figure = self.get_root()
-        assert isinstance(
-            figure, Figure
-        ), "You cannot render this Element if it is not in a Figure."
-        if self.includes:
-            stmt = IncludeStatement(self.leaflet_class_name, **self.includes)
-            # A bit weird. I tried adding IncludeStatement directly to both
-            # figure and script, but failed. So we render this ourself.
-            figure.script.add_child(
-                Element(stmt._template.render(this=stmt, kwargs=self.includes)),
-                # make sure each class include gets rendered only once
-                name=self._name + "_includes",
-                # make sure this renders before the element itself
-                index=-1,
-            )
-        super().render(**kwargs)
+        pass
 
 
 class Evented(Class):
@@ -89,7 +74,7 @@ class Evented(Class):
         self._add(once=False, **event_map)
 
     def once(self, **event_map: JsCode):
-        self._add(once=True, **event_map)
+        pass
 
     def _add(self, once: bool, **event_map: JsCode):
         for event_type, handler in event_map.items():
@@ -127,15 +112,7 @@ class Layer(Evented):
         self.show = show
 
     def render(self, **kwargs):
-        if self.show:
-            self.add_child(
-                ElementAddToElement(
-                    element_name=self.get_name(),
-                    element_parent_name=self._parent.get_name(),
-                ),
-                name=self.get_name() + "_add",
-            )
-        super().render(**kwargs)
+        pass
 
 
 class FeatureGroup(Layer):
@@ -263,21 +240,11 @@ class LayerControl(MacroElement):
         self.overlays: OrderedDict[str, str] = OrderedDict()
 
     def reset(self) -> None:
-        self.base_layers = OrderedDict()
-        self.overlays = OrderedDict()
+        pass
 
     def render(self, **kwargs):
         """Renders the HTML representation of the element."""
-        self.reset()
-        for item in self._parent._children.values():
-            if not isinstance(item, Layer) or not item.control:
-                continue
-            key = item.layer_name
-            if not item.overlay:
-                self.base_layers[key] = item.get_name()
-            else:
-                self.overlays[key] = item.get_name()
-        super().render()
+        pass
 
 
 class Icon(MacroElement):
@@ -459,17 +426,10 @@ class Marker(MacroElement):
 
         Because a marker has only single coordinates, we repeat them.
         """
-        assert self.location is not None
-        return cast(TypeBoundsReturn, [self.location, self.location])
+        pass
 
     def render(self):
-        if self.location is None:
-            raise ValueError(
-                f"{self._name} location must be assigned when added directly to map."
-            )
-        if self.icon:
-            self.add_child(self.SetIcon(marker=self, icon=self.icon))
-        super().render()
+        pass
 
     def set_icon(self, icon):
         """Set the icon for this Marker"""
@@ -566,18 +526,7 @@ class Popup(MacroElement):
 
     def render(self, **kwargs):
         """Renders the HTML representation of the element."""
-        for name, child in self._children.items():
-            child.render(**kwargs)
-
-        figure = self.get_root()
-        assert isinstance(
-            figure, Figure
-        ), "You cannot render this Element if it is not in a Figure."
-
-        figure.script.add_child(
-            Element(self._template.render(this=self, kwargs=kwargs)),
-            name=self.get_name(),
-        )
+        pass
 
 
 class Tooltip(MacroElement):
